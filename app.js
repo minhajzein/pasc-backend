@@ -20,8 +20,8 @@ const cors = require('cors')
 
 connectDb(DATABASE_URL)
 app.use(cors({
-    origin: ['http://localhost:3000'],
-    methods: ["GET", "POST"],
+    origin: ['http://127.0.0.1:5173'],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }))
 
