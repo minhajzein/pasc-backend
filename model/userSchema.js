@@ -16,10 +16,12 @@ const userSchema = new mongoose.Schema({
         trim: true,
         minlength: [10],
         maxlength: [10]
+    }, googleAuth: {
+        type: Boolean,
+        required: true
     },
     password: {
         type: String,
-        required: true,
         minlength: [8],
         trim: true
     },

@@ -10,14 +10,14 @@ const jwt = require('jsonwebtoken');
 module.exports = {
     home: async (req, res) => {
         try {
-            res.json({ auth: true })
+
         } catch (error) {
             console.log(error)
         }
     },
-    signUp: async (req, res) => {
+    login: async (req, res) => {
         try {
-
+            console.log(req.body);
         } catch (error) {
             console.log(error);
         }

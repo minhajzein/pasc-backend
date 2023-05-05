@@ -9,6 +9,7 @@ const controller = require('../controller/adminController')
 
 router.get('/admin', controller.home)
 
+router.post('/admin/login', controller.login)
 
 
 //=========================

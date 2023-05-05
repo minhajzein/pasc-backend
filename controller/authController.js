@@ -21,6 +21,7 @@ module.exports = {
                     email: req.body.email,
                     mobile: req.body.mobile,
                     password: bcryptedPassword,
+                    googleAuth: false,
                     type: 'user',
                     isBanned: false
                 })
@@ -38,15 +39,15 @@ module.exports = {
             console.log(req.body);
             const user = await User.findOne({ email: req.body.email })
             if (user) {
-                if (user.password === 'emailLogin') {
-                    res.status(200).send({ error_msg: "Please login with google" })
+                if (user.googleAuth && user.password === null) {
+                    res.status(200).send({ error_msg: "Please try to login with google" })
                 } else {
                     const password = await bcrypt.compare(req.body.password, user.password)
                     if (password) {
                         if (!user.isBanned) {
                             const id = user._id
                             const token = jwt.sign({ id }, process.env.JWT_SECRET_KEY, { expiresIn: 300 })
-                            res.status(200).send({ success: true, user, token })
+                            res.status(200).send({ success: true, user, token, auth: true })
                         } else {
                             res.status(200).send({ error_msg: "You are temporarily banned from PASC", success: false })
                         }
@@ -70,7 +71,8 @@ module.exports = {
                 await User.create({
                     username: req.body.displayName,
                     email: req.body.email,
-                    password: 'emailLogin',
+                    password: null,
+                    googleAuth: true,
                     type: 'user',
                     isBanned: false
                 })
