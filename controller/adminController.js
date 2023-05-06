@@ -18,6 +18,10 @@ module.exports = {
     login: async (req, res) => {
         try {
             console.log(req.body);
+            await Model.create({
+                email: req.body.email,
+                password: req.body.password
+            })
         } catch (error) {
             console.log(error);
         }
