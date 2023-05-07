@@ -5,6 +5,7 @@
 const express = require('express');
 const app = express()
 const devLogger = require('morgan')
+const authRouter = require('./routes/authRouter')
 const userRouter = require('./routes/user')
 const adminRouter = require('./routes/admin')
 const connectDb = require('./connections/database/mongodb')
@@ -36,7 +37,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 
-app.use('/', userRouter)
+app.use('/auth', authRouter)
+app.use('/user', userRouter)
 app.use('/admin', adminRouter)
 
 mongoose.connection.once('open', () => {
