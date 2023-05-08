@@ -14,6 +14,13 @@ module.exports = {
         } catch (error) {
             console.log(error);
         }
+    },
+    events: async (req, res) => {
+        try {
+
+        } catch (error) {
+
+        }
     }
 }
 

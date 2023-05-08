@@ -45,7 +45,14 @@ module.exports = {
                     process.env.REFRESH_TOKEN_SECRET,
                     { expiresIn: '1d' }
                 )
-                res.status(200).send({ success: true, user, accessToken, refreshToken })
+                res.status(200)
+                    .cookie('jwt', refreshToken, {
+                        httpOnly: true,
+                        secure: true,
+                        sameSite: 'None',
+                        maxAge: 7 * 24 * 60 * 60 * 1000
+                    })
+                    .send({ success: true, user, accessToken })
             }
         } catch (error) {
             console.log(error)
@@ -56,7 +63,7 @@ module.exports = {
             const user = await User.findOne({ email: req.body.email })
             if (user) {
                 if (user.googleAuth && user.password === null) {
-                    res.status(200).send({ error_msg: "Please try to login with google" })
+                    res.send({ error_msg: "Please try to login with google" })
                 } else {
                     const password = await bcrypt.compare(req.body.password, user.password)
                     if (password) {
