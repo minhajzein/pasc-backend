@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../model/userSchema')
@@ -43,14 +43,14 @@ module.exports = {
                 const refreshToken = jwt.sign(
                     { "id": user._id },
                     process.env.REFRESH_TOKEN_SECRET,
-                    { expiresIn: '7d' }
+                    { expiresIn: '1d' }
                 )
                 res.status(200)
                     .cookie('jwt', refreshToken, {
                         httpOnly: true,
                         secure: true,
                         sameSite: 'None',
-                        maxAge: 7 * 24 * 60 * 60 * 1000
+                        maxAge: 24 * 60 * 60 * 1000
                     })
                     .send({ success: true, user, accessToken })
             }
@@ -85,14 +85,14 @@ module.exports = {
                             const refreshToken = jwt.sign(
                                 { "id": user._id },
                                 process.env.REFRESH_TOKEN_SECRET,
-                                { expiresIn: '7d' }
+                                { expiresIn: '1d' }
                             )
                             res.status(200)
                                 .cookie('jwt', refreshToken, {
                                     httpOnly: true,
                                     secure: true,
                                     sameSite: 'None',
-                                    maxAge: 7 * 24 * 60 * 60 * 1000
+                                    maxAge: 24 * 60 * 60 * 1000
                                 })
                                 .send({ success: true, user, accessToken, auth: true })
                         } else {
@@ -142,14 +142,14 @@ module.exports = {
                 const refreshToken = jwt.sign(
                     { "id": user._id },
                     process.env.REFRESH_TOKEN_SECRET,
-                    { expiresIn: '7d' }
+                    { expiresIn: '1d' }
                 )
                 res.status(200)
                     .cookie('jwt', refreshToken, {
                         httpOnly: true,
                         secure: true,
                         sameSite: 'None',
-                        maxAge: 7 * 24 * 60 * 60 * 1000
+                        maxAge: 24 * 60 * 60 * 1000
                     })
                     .send({ success: true, user, accessToken })
             }
@@ -176,14 +176,14 @@ module.exports = {
                 const refreshToken = jwt.sign(
                     { "id": user._id },
                     process.env.REFRESH_TOKEN_SECRET,
-                    { expiresIn: '7d' }
+                    { expiresIn: '1d' }
                 )
                 res.status(200)
                     .cookie('jwt', refreshToken, {
                         httpOnly: true,
                         secure: true,
                         sameSite: 'None',
-                        maxAge: 7 * 24 * 60 * 60 * 1000
+                        maxAge: 24 * 60 * 60 * 1000
                     })
                     .send({ success: true, user, accessToken })
             } else {
@@ -207,7 +207,7 @@ module.exports = {
                 asyncHandler(async (err, decoded) => {
                     if (err) return res.status(403).json({ message: 'Forbidden' })
 
-                    const user = await User.findOne({ _id: decoded.id })
+                    const user = await User.findOne({ _id: decoded.id }).select('-password')
 
                     if (!user) return res.status(401).json({ message: 'Unauthorized' })
 
@@ -224,7 +224,7 @@ module.exports = {
                         }
                     )
 
-                    res.json({ accessToken })
+                    res.json({ accessToken, user })
                 })
             )
         } catch (error) {
