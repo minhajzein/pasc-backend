@@ -14,6 +14,7 @@ router.post('/signinWithGoogle', authController.signinWithGoogle)
 
 router.post('/loginWithGoogle', authController.loginWithGoogle)
 
+router.get('/refresh', authController.refresh)
 
 //===================
 

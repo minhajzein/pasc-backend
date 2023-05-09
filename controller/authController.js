@@ -36,14 +36,14 @@ module.exports = {
                     },
                     process.env.ACCESS_TOKEN_SECRET,
                     {
-                        expiresIn: '10s'
+                        expiresIn: '15m'
                     }
                 )
 
                 const refreshToken = jwt.sign(
                     { "id": user._id },
                     process.env.REFRESH_TOKEN_SECRET,
-                    { expiresIn: '1d' }
+                    { expiresIn: '7d' }
                 )
                 res.status(200)
                     .cookie('jwt', refreshToken, {
@@ -78,14 +78,14 @@ module.exports = {
                                 },
                                 process.env.ACCESS_TOKEN_SECRET,
                                 {
-                                    expiresIn: '10s'
+                                    expiresIn: '15m'
                                 }
                             )
 
                             const refreshToken = jwt.sign(
                                 { "id": user._id },
                                 process.env.REFRESH_TOKEN_SECRET,
-                                { expiresIn: '1d' }
+                                { expiresIn: '7d' }
                             )
                             res.status(200)
                                 .cookie('jwt', refreshToken, {
@@ -135,14 +135,14 @@ module.exports = {
                     },
                     process.env.ACCESS_TOKEN_SECRET,
                     {
-                        expiresIn: '10s'
+                        expiresIn: '15m'
                     }
                 )
 
                 const refreshToken = jwt.sign(
                     { "id": user._id },
                     process.env.REFRESH_TOKEN_SECRET,
-                    { expiresIn: '1d' }
+                    { expiresIn: '7d' }
                 )
                 res.status(200)
                     .cookie('jwt', refreshToken, {
@@ -170,13 +170,13 @@ module.exports = {
                     },
                     process.env.ACCESS_TOKEN_SECRET,
                     {
-                        expiresIn: '10s'
+                        expiresIn: '15m'
                     }
                 )
                 const refreshToken = jwt.sign(
                     { "id": user._id },
                     process.env.REFRESH_TOKEN_SECRET,
-                    { expiresIn: '1d' }
+                    { expiresIn: '7d' }
                 )
                 res.status(200)
                     .cookie('jwt', refreshToken, {
@@ -195,7 +195,9 @@ module.exports = {
     },
     refresh: (req, res) => {
         const cookies = req.cookies
+
         if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized' })
+
         const refreshToken = cookies.jwt
 
         try {
@@ -205,7 +207,7 @@ module.exports = {
                 asyncHandler(async (err, decoded) => {
                     if (err) return res.status(403).json({ message: 'Forbidden' })
 
-                    const user = await User.findById(decoded._id)
+                    const user = await User.findOne({ _id: decoded.id })
 
                     if (!user) return res.status(401).json({ message: 'Unauthorized' })
 
@@ -218,7 +220,7 @@ module.exports = {
                         },
                         process.env.ACCESS_TOKEN_SECRET,
                         {
-                            expiresIn: '10s'
+                            expiresIn: '15m'
                         }
                     )
 
