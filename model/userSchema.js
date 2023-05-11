@@ -29,9 +29,18 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    avatar: {
+        type: String
+    },
+    coverPhoto: {
+        type: String
+    },
     isBanned: {
         type: Boolean,
         required: true
+    },
+    achievements: {
+        type: Array
     }
 })
 

@@ -23,7 +23,10 @@ module.exports = {
                     mobile: req.body.mobile,
                     password: bcryptedPassword,
                     googleAuth: false,
-                    type: 'user',
+                    type: 'guest',
+                    avatar: null,
+                    coverPhoto: null,
+                    achievements: null,
                     isBanned: false
                 })
                 const user = await User.findOne({ email: req.body.email })
@@ -121,7 +124,10 @@ module.exports = {
                     email: req.body.email,
                     password: null,
                     googleAuth: true,
-                    type: 'user',
+                    type: 'guest',
+                    avatar: null,
+                    coverPhoto: null,
+                    achievements: null,
                     isBanned: false
                 })
                 const user = await User.findOne({ email: req.body.email })

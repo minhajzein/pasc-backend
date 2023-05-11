@@ -17,20 +17,26 @@ module.exports = {
         }
     }),
 
-    login: asyncHandler(async (req, res) => {
-        const { email, password } = req.body
+    login: async (req, res) => {
+        try {
+            const { email, password } = req.body
 
-        //Hash password
-        const hashedPwd = await bcrypt.hash(password, 10) //salt rounds
+            //Hash password
+            const hashedPwd = await bcrypt.hash(password, 10) //salt rounds
 
-        const admin = await Model.create({
-            email: email,
-            password: hashedPwd
-        })
-        if (admin) {
-            res.status(201).json({ message: 'Admin created' })
+            const admin = await Model.create({
+                email: email,
+                password: hashedPwd
+            })
+            if (admin) {
+                res.status(201).json({ message: 'Admin created' })
+            }
+
+        } catch (error) {
+            console.log(error);
         }
-    }),
+
+    },
 
     getAllUsers: asyncHandler(async (req, res) => {
         const users = await userModel.find().select('-password').lean()
