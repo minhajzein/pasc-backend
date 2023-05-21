@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
-const Model = require('../model/adminSchema')
-const userModel = require('../model/userSchema')
+const Model = require('../../model/adminSchema')
+const userModel = require('../../model/userSchema')
 const bcrypt = require('bcrypt')
-const Admin = require('../model/adminSchema')
+const Admin = require('../../model/adminSchema')
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler')
 
