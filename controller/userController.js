@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Model = require('../model/userSchema')
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+
 
 
 //⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡
@@ -10,7 +9,14 @@ const bcrypt = require('bcrypt');
 module.exports = {
     home: async (req, res) => {
         try {
-            res.send('hello world')
+            res.send({ success: true })
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    editProfilePicture: async (req, res) => {
+        try {
+            const user = await Model.findById(req.body.id)
         } catch (error) {
             console.log(error);
         }

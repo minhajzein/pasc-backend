@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 module.exports = {
     verifyUser: async (req, res, next) => {
         try {
-            const authHeader = req.headers.authorization || req.headers.authorization
+            const authHeader = req.headers.authorization || req.Headers.authorization
 
             if (!authHeader?.startsWith('Bearer ')) {
                 return res.status(401).json({ message: 'Unauthorized' })
@@ -15,7 +15,7 @@ module.exports = {
                 token,
                 process.env.ACCESS_TOKEN_SECRET,
                 (err, decode) => {
-                    if (err) return res.status(403).json({ message: 'Forbidden' })
+                    if (err) return res.status(403).json({ err_message: 'Forbidden' })
                     req.user = decode.UserInfo.username
                     req.type = decode.UserInfo.type
                     next()

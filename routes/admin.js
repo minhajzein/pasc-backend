@@ -11,6 +11,8 @@ router.get('/', controller.home)
 
 router.post('/login', controller.login)
 
+router.get('/refresh', controller.refresh)
+
 
 //=========================
 

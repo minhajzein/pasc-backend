@@ -10,6 +10,7 @@ router.get('/', controller.home)
 
 router.get('/news', controller.events)
 
+router.patch('/updateProfilePicture', controller.editProfilePicture)
 
 
 //===============================================================
