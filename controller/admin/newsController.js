@@ -6,7 +6,7 @@ module.exports = {
     getAllNews: async (req, res) => {
         try {
             const news = await Model.find()
-            res.status(200).json(news)
+            res.status(200).json({ news, success: true })
         } catch (error) {
             console.log(error);
         }

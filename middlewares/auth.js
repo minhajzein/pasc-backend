@@ -28,15 +28,15 @@ module.exports = {
     },
     verifyAdmin: async (req, res, next) => {
         try {
-            const token = req.headers['x-access-token']
-            if (!token) {
-                res.send({ error_msg: 'Access denied! please login', auth: false })
+            const adminToken = req.headers.adminauthorized || req.Headers.adminauthorized
+            if (!adminToken?.startsWith('Bearer ')) {
+                return res.status(401).json({ message: 'Unauthorized' })
             } else {
-                jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
+                const token = adminToken.split(' ')[1]
+                jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
                     if (err) {
                         res.send({ error_msg: 'Access denied! please login', auth: false })
                     } else {
-                        req.userId = decoded.id
                         next()
                     }
                 })
