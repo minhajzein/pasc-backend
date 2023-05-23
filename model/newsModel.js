@@ -18,13 +18,9 @@ const newsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    date: {
-        type: Date,
-        default: Date.now
-    }
-
+}, {
+    timestamps: true
 })
 
-const newsModel = mongoose.model('news', newsSchema)
+module.exports = mongoose.model('news', newsSchema)
 
-module.exports = newsModel
