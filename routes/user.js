@@ -4,25 +4,25 @@ const controller = require('../controller/client/userController')
 const tokenVerify = require('../middlewares/auth');
 const eventController = require('../controller/client/eventsController')
 
-router.use(tokenVerify.verifyUser)
-
-//================================= home =============================
-
-router.get('/', controller.home)
 
 
-//================================= event management =================================
+//================================= home ============================================================================================================================
 
-router.get('/events', eventController.getAllEvents)
-
-
-
-//================================= profile updation =================================================
+router.get('/', tokenVerify.verifyUser, controller.home)
 
 
-router.patch('/updateProfilePicture', controller.editProfilePicture)
+//================================= event management =================================================================================================================
+
+router.get('/events', tokenVerify.verifyUser, eventController.getAllEvents)
 
 
-//===============================================================
+
+//================================= profile updation =================================================================================================================
+
+
+router.patch('/updateProfilePicture', tokenVerify.verifyUser, controller.editProfilePicture)
+
+
+//====================================================================================================================================================================
 
 module.exports = router

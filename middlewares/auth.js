@@ -28,6 +28,7 @@ module.exports = {
             console.log(error);
         }
     },
+
     verifyAdmin: async (req, res, next) => {
         try {
             const adminToken = req.headers.adminauthorized || req.Headers.adminauthorized
@@ -49,3 +50,4 @@ module.exports = {
         }
     }
 }
+

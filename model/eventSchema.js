@@ -5,6 +5,28 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    category: {
+        type: String,
+        required: true
+    },
+    startingDate: {
+        type: Date,
+        required: true
+    },
+    limit: {
+        type: String,
+        required: true
+    },
+    playersLimit: {
+        type: Number
+    },
+    teamLimit: {
+        type: Number
+    },
+    endingDate: {
+        type: Date,
+        required: true
+    },
     eventType: {
         type: String,
         required: true
@@ -26,6 +48,6 @@ const eventSchema = new mongoose.Schema({
     registereddTeams: {
         type: Array
     }
-}, { timestamps: true })
+})
 
 module.exports = mongoose.model('event', eventSchema)
