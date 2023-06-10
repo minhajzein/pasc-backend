@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema({
         trim: true,
         minlength: [10],
         maxlength: [10]
-    }, googleAuth: {
+    },
+    googleAuth: {
         type: Boolean,
         required: true
     },
@@ -26,7 +27,7 @@ const userSchema = new mongoose.Schema({
         trim: true
     },
     type: {
-        type: String,
+        type: Array,
         required: true
     },
     avatar: {

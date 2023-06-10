@@ -11,10 +11,26 @@ module.exports = {
             console.log(error);
         }
     },
-    banUser: async (req, res) => {
+    banUnbanUser: async (req, res) => {
         try {
-            await Model.findOneAndUpdate({ _id: req.query.id }, { $set: { isBanned: true } })
-            res.status(200).send({ success: true })
+            const user = await Model.findById(req.body.userId)
+            if (user) {
+                await Model.updateOne({ _id: req.body.userId }, {
+                    $set: {
+                        isBanned: !user.isBanned
+                    }
+                })
+                res.status(200).send({ success: true })
+            } else {
+                res.status(200).send({ err_msg: 'User not found' })
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    addRoles: async (req, res) => {
+        try {
+            console.log(req.body);
         } catch (error) {
             console.log(error);
         }
