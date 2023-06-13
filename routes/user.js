@@ -1,28 +1,26 @@
 const express = require('express')
 const router = express.Router()
 const controller = require('../controller/client/userController')
-const tokenVerify = require('../middlewares/auth');
-const eventController = require('../controller/client/eventsController')
+const { verifyUser } = require('../middlewares/auth');
+const eventController = require('../controller/client/eventsController');
+const newsController = require('../controller/client/newsController');
 
 
 
-//================================= home ============================================================================================================================
+//================================= home =======================================================
+router.get('/', verifyUser, controller.home)
 
-router.get('/', tokenVerify.verifyUser, controller.home)
+//===============================================================================================
 
+router.get('/news', verifyUser, newsController.getAllNews)
 
-//================================= event management =================================================================================================================
+//================================= events ======================================================
 
-router.get('/events', tokenVerify.verifyUser, eventController.getAllEvents)
+router.get('/events', verifyUser, eventController.getAllEvents)
 
+//================================= profile updation ============================================
 
+router.patch('/updateProfilePicture', verifyUser, controller.editProfilePicture)
 
-//================================= profile updation =================================================================================================================
-
-
-router.patch('/updateProfilePicture', tokenVerify.verifyUser, controller.editProfilePicture)
-
-
-//====================================================================================================================================================================
-
+//===============================================================================================
 module.exports = router

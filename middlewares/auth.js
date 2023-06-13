@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const Model = require('../model/userSchema')
 
 module.exports = {
     verifyUser: async (req, res, next) => {
@@ -14,11 +15,16 @@ module.exports = {
             jwt.verify(
                 token,
                 process.env.ACCESS_TOKEN_SECRET,
-                (err, decode) => {
+                async (err, decode) => {
                     if (err) {
                         return res.status(403).json({ message: 'Forbidden', auth: false })
                     } else {
-                        next()
+                        const user = await Model.findById(decode.UserInfo.id)
+                        if (user?.isBanned) {
+                            res.status(403).json({ auth: false, message: 'You are banned from website' })
+                        } else {
+                            next()
+                        }
                     }
 
                 }

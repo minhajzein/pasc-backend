@@ -33,6 +33,7 @@ module.exports = {
                 const accessToken = jwt.sign(
                     {
                         'UserInfo': {
+                            'id': user._id,
                             'username': user.username,
                             'type': user.type
                         }
@@ -61,6 +62,7 @@ module.exports = {
             console.log(error)
         }
     },
+
     login: async (req, res) => {
         try {
             const user = await User.findOne({ email: req.body.email })
@@ -75,6 +77,7 @@ module.exports = {
                             const accessToken = jwt.sign(
                                 {
                                     'UserInfo': {
+                                        'id': user._id,
                                         'username': user.username,
                                         'type': user.type
                                     }
@@ -113,6 +116,7 @@ module.exports = {
             console.log(error);
         }
     },
+
     signinWithGoogle: async (req, res) => {
         try {
             const userWithEmail = await User.find({ email: req.body.email })
@@ -135,6 +139,7 @@ module.exports = {
                 const accessToken = jwt.sign(
                     {
                         'UserInfo': {
+                            'id': user._id,
                             'username': user.username,
                             'type': user.type
                         }
@@ -163,6 +168,7 @@ module.exports = {
             console.log(error);
         }
     },
+
     loginWithGoogle: async (req, res) => {
         try {
             const user = await User.findOne({ email: req.body.email })
@@ -170,6 +176,7 @@ module.exports = {
                 const accessToken = jwt.sign(
                     {
                         'UserInfo': {
+                            'id': user._id,
                             'username': user.username,
                             'type': user.type
                         }
@@ -199,6 +206,7 @@ module.exports = {
             console.log(error);
         }
     },
+
     refresh: (req, res) => {
         const cookies = req.cookies
 
@@ -215,7 +223,7 @@ module.exports = {
 
                     const user = await User.findOne({ _id: decoded.id }).select('-password')
 
-                    if (!user) return res.status(401).json({ message: 'Unauthorized' })
+                    if (!user || user.isBanned) return res.status(401).json({ message: 'Unauthorized' })
 
                     const accessToken = jwt.sign(
                         {
@@ -237,6 +245,7 @@ module.exports = {
             console.log(error);
         }
     },
+
     logout: async (req, res) => {
         const cookies = req.cookies
         if (!cookies?.jwt) return res.sendStatus(204) //No content

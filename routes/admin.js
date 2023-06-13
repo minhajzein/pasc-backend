@@ -8,33 +8,36 @@ const usersController = require('../controller/admin/usersController');
 
 
 
-//================================ imports ========================================================================================
+//================= imports ==================================================
 
 router.get('/', verifyAdmin, controller.home)
 
 
-//================ auth ===========================================================================================================
-
+//================ auth =======================================================
 router.post('/login', controller.login)
 router.get('/refresh', controller.refresh)
+router.get('/logout', verifyAdmin, controller.logout)
 
-//================ News ===========================================================================================================
+//================ News =======================================================
 
 router.get('/news', verifyAdmin, newsController.getAllNews)
 router.post('/addNews', verifyAdmin, newsController.createNews)
+router.patch('/editNews', verifyAdmin, newsController.editNews)
+router.delete('/deleteNews', verifyAdmin, newsController.deleteNews)
 
-//================ Events =========================================================================================================
+//================ Events =======================================================
 
 router.get('/events', verifyAdmin, eventsController.getAllEvents)
 router.post('/addEvent', verifyAdmin, eventsController.addEvent)
 router.patch('/editEvent', verifyAdmin, eventsController.editEvent)
+router.delete('/deleteEvent', verifyAdmin, eventsController.deleteEvent)
 
-//================ Users management ================================================================================================
+//================ Users management ==============================================
 
 router.get('/users', verifyAdmin, usersController.getAllUsers)
 router.patch('/changeStatus', verifyAdmin, usersController.banUnbanUser)
 router.patch('/addRoles', verifyAdmin, usersController.addRoles)
 
-//==================================================================================================================================
+//================================================================================
 
 module.exports = router
