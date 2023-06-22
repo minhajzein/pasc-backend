@@ -4,13 +4,14 @@ const controller = require('../controller/client/userController')
 const { verifyUser } = require('../middlewares/auth');
 const eventController = require('../controller/client/eventsController');
 const newsController = require('../controller/client/newsController');
-
+const applicationController = require('../controller/client/membershipController')
 
 
 //================================= home =======================================================
+
 router.get('/', verifyUser, controller.home)
 
-//===============================================================================================
+//================================= news ==============================================================
 
 router.get('/news', verifyUser, newsController.getAllNews)
 
@@ -22,5 +23,12 @@ router.get('/events', verifyUser, eventController.getAllEvents)
 
 router.patch('/updateProfilePicture', verifyUser, controller.editProfilePicture)
 
+//================================= application =================================================
+
+router.post('/addMobile', verifyUser, applicationController.addMobile)
+router.post('/createRequest', verifyUser, applicationController.createRequest)
+
 //===============================================================================================
+
+
 module.exports = router

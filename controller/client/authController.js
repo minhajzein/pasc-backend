@@ -128,6 +128,7 @@ module.exports = {
                     email: req.body.email,
                     password: null,
                     googleAuth: true,
+                    mobile: null,
                     type: ['guest'],
                     avatar: null,
                     coverPhoto: null,
@@ -200,7 +201,7 @@ module.exports = {
                     })
                     .send({ success: true, user, accessToken })
             } else {
-                res.status(200).send({ error_msg: "Email is not registered" })
+                res.status(200).send({ error_msg: "Email is not registered", success: false })
             }
         } catch (error) {
             console.log(error);
@@ -210,7 +211,7 @@ module.exports = {
     refresh: (req, res) => {
         const cookies = req.cookies
 
-        if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized' })
+        if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized', success: false })
 
         const refreshToken = cookies.jwt
 
@@ -254,6 +255,6 @@ module.exports = {
             sameSite: 'None',
             secure: true
         })
-        res.json({ message: 'Cookie cleared' })
+        res.status(200).json({ message: 'Cookie cleared', success: true })
     }
 }

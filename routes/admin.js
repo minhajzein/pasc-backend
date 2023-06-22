@@ -5,15 +5,15 @@ const newsController = require('../controller/admin/newsController')
 const { verifyAdmin } = require('../middlewares/auth')
 const eventsController = require('../controller/admin/eventController');
 const usersController = require('../controller/admin/usersController');
-
+const requestController = require('../controller/admin/requestController');
 
 
 //================= imports ==================================================
 
 router.get('/', verifyAdmin, controller.home)
 
-
 //================ auth =======================================================
+
 router.post('/login', controller.login)
 router.get('/refresh', controller.refresh)
 router.get('/logout', verifyAdmin, controller.logout)
@@ -38,6 +38,11 @@ router.get('/users', verifyAdmin, usersController.getAllUsers)
 router.patch('/changeStatus', verifyAdmin, usersController.banUnbanUser)
 router.patch('/addRoles', verifyAdmin, usersController.addRoles)
 
-//================================================================================
+//================= Requests managment ============================================
+
+router.get('/requests', verifyAdmin, requestController.getAllRequests)
+router.patch('/approve', verifyAdmin, requestController.approve)
+
+//==================================================================================
 
 module.exports = router

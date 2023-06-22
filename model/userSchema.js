@@ -26,6 +26,9 @@ const userSchema = new mongoose.Schema({
         minlength: [8],
         trim: true
     },
+    aadhaar: {
+        type: Number
+    },
     type: {
         type: Array,
         required: true
