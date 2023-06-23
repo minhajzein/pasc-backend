@@ -25,7 +25,8 @@ router.patch('/updateProfilePicture', verifyUser, controller.editProfilePicture)
 
 //================================= application =================================================
 
-router.post('/addMobile', verifyUser, applicationController.addMobile)
+router.post('/checkMobile', verifyUser, applicationController.checkMobile)
+router.patch('/addMobile', verifyUser, applicationController.addMobile)
 router.post('/createRequest', verifyUser, applicationController.createRequest)
 
 //===============================================================================================
