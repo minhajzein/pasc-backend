@@ -29,10 +29,9 @@ app.use(logger)
 app.use(errorHandler)
 app.use(cookieParser())
 
-// app.use(cors(corsOptions))
 
+app.use(cors(corsOptions))
 
-app.use(cors({}))
 
 app.use(devLogger("dev"))
 app.use(express.urlencoded({ extended: false, limit: '50mb' }))
