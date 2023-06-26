@@ -14944,3 +14944,5 @@
 20230626	12:20:45	GET	/news	https://pasc.site
 20230626	12:20:56	OPTIONS	/events	https://pasc.site
 20230626	12:20:56	GET	/events	https://pasc.site
+20230626	12:23:42	OPTIONS	/news	https://pasc.site
+20230626	12:23:42	GET	/news	https://pasc.site
