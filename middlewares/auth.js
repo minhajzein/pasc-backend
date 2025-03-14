@@ -4,7 +4,7 @@ const Model = require('../model/userSchema')
 module.exports = {
     verifyUser: async (req, res, next) => {
         try {
-            const authHeader = req.headers.authorized || req.Headers.authorized
+            const authHeader = req.headers?.authorized || req.Headers?.authorized
 
             if (!authHeader?.startsWith('Bearer ')) {
                 return res.status(401).json({ message: 'Unauthorized', auth: false })
