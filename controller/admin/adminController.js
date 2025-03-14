@@ -80,7 +80,7 @@ module.exports = {
                     if (err) return res.status(401).json({ message: 'Forbidden' })
                     const admin = await Admin.findById(decode.id).select('-password')
 
-                    if (!admin) return res.status(401).json({ message: 'Second Unauthorized' })
+                    if (!admin) return res.status(401).json({ message: 'Unauthorized' })
 
                     const accessToken = jwt.sign(
                         {

@@ -229,6 +229,7 @@ module.exports = {
                     const accessToken = jwt.sign(
                         {
                             'UserInfo': {
+                                'id': user._id,
                                 'username': user.username,
                                 'type': user.type
                             }

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Model = require('../../model/userSchema')
+const User = require('../../model/userSchema')
+const Event = require('../../model/eventSchema');
 
 
 
@@ -9,24 +10,20 @@ const Model = require('../../model/userSchema')
 module.exports = {
     home: async (req, res) => {
         try {
-            res.send({ success: true })
+            const latestEvents = await Event.find().limit(4)
+            const latestNews = await News.find().limit(5)
+            res.json(latestEvents, latestNews)
         } catch (error) {
             console.log(error);
         }
     },
     editProfilePicture: async (req, res) => {
         try {
-            const user = await Model.findById(req.body.id)
+            const user = await User.findById(req.body.id)
         } catch (error) {
             console.log(error);
         }
-    },
-    events: async (req, res) => {
-        try {
-
-        } catch (error) {
-
-        }
     }
+
 }
 
