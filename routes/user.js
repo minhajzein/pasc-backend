@@ -21,6 +21,7 @@ router.get('/events', verifyUser, eventController.getAllEvents)
 
 //================================= profile updation ============================================
 
+router.post('/upload-profile-picture', controller.uploadProfilePicture)
 router.patch('/updateProfilePicture', verifyUser, controller.editProfilePicture)
 
 //================================= application =================================================

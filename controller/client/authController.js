@@ -167,6 +167,7 @@ module.exports = {
             }
         } catch (error) {
             console.log(error);
+            res.send({ success: false, err_msg: 'Internal server error' })
         }
     },
 
@@ -205,6 +206,7 @@ module.exports = {
             }
         } catch (error) {
             console.log(error);
+            res.send({ success: false, err_msg: 'Internal server error' })
         }
     },
 
@@ -245,6 +247,7 @@ module.exports = {
             )
         } catch (error) {
             console.log(error);
+            res.send({ success: false, err_msg: 'Internal server error' })
         }
     },
 

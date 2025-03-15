@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const User = require('../../model/userSchema')
 const Event = require('../../model/eventSchema');
 
@@ -15,13 +14,26 @@ module.exports = {
             res.json(latestEvents, latestNews)
         } catch (error) {
             console.log(error);
+            res.send({ success: false, err_msg: 'Internal server error' })
         }
     },
-    editProfilePicture: async (req, res) => {
+
+    uploadProfilePicture: async (req, res) => {
         try {
-            const user = await User.findById(req.body.id)
+            const user = await User.create({ avatar: req.body.avatar })
+            res.send({ success: true, user })
         } catch (error) {
             console.log(error);
+            res.send({ success: false, err_msg: 'Internal server error' })
+        }
+    },
+
+    editProfilePicture: async (req, res) => {
+        try {
+            const user = await User.findByIdAndUpdate(req.params.id, { avatar: req.body.avatar })
+        } catch (error) {
+            console.log(error);
+            res.send({ success: false, err_msg: 'Internal server error' })
         }
     }
 
