@@ -18,13 +18,10 @@ module.exports = {
             } else {
                 const bcryptedPassword = await bcrypt.hash(req.body.password, 10)
                 await User.create({
-                    username: req.body.username,
-                    email: req.body.email,
-                    mobile: req.body.mobile,
+                    ...req.body,
                     password: bcryptedPassword,
                     googleAuth: false,
                     type: ['guest'],
-                    avatar: null,
                     coverPhoto: null,
                     achievements: null,
                     isBanned: false

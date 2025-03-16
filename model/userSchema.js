@@ -45,6 +45,9 @@ const userSchema = new mongoose.Schema({
     DOB: {
         type: Date
     },
+    gender: {
+        type: String
+    },
     address: {
         type: String,
     }
