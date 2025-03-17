@@ -18,22 +18,30 @@ module.exports = {
         }
     },
 
-    uploadProfilePicture: async (req, res) => {
-        try {
-            const user = await User.create({ avatar: req.body.avatar })
-            res.send({ success: true, user })
-        } catch (error) {
-            console.log(error);
-            res.send({ success: false, err_msg: 'Internal server error' })
-        }
-    },
-
     editProfilePicture: async (req, res) => {
         try {
             const user = await User.findByIdAndUpdate(req.params.id, { avatar: req.body.avatar })
         } catch (error) {
             console.log(error);
             res.send({ success: false, err_msg: 'Internal server error' })
+        }
+    },
+
+    updateProfile: async (req, res) => {
+        try {
+            const user = await User.findByIdAndUpdate(req.params.id, {
+                email: req.body.email,
+                mobile: req.body.mobile,
+                avatar: req.body.avatar,
+                address: req.body.address,
+                username: req.body.username,
+                gender: req.body.gender,
+                DOB: req.body.DOB
+            })
+            res.send({ success: true, message: 'Profile Updated', user: user })
+        } catch (error) {
+            console.log(error);
+            res.send({ success: false, message: 'Internal server error' })
         }
     }
 

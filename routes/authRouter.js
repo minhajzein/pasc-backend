@@ -21,6 +21,8 @@ router.post('/send-otp', sendOTP)
 
 router.post('/verify-otp', verifyOTP)
 
+router.post('/reset-password', authController.resetPassword)
+
 router.get('/logout', authController.logout)
 
 //===================

@@ -12,9 +12,9 @@ module.exports = {
             const userWithEmail = await User.find({ email: req.body.email })
             const userwithMobile = await User.find({ mobile: req.body.mobile })
             if (userWithEmail[0] !== undefined) {
-                res.status(200).send({ error_msg: 'Email is already registered', success: false })
+                return res.status(200).send({ error_msg: 'Email is already registered', success: false })
             } else if (userwithMobile[0] !== undefined) {
-                res.status(200).send({ error_msg: 'Mobile number is already registered', success: false })
+                return res.status(200).send({ error_msg: 'Mobile number is already registered', success: false })
             } else {
                 const bcryptedPassword = await bcrypt.hash(req.body.password, 10)
                 await User.create({
@@ -111,6 +111,19 @@ module.exports = {
             }
         } catch (error) {
             console.log(error);
+        }
+    },
+
+    resetPassword: async (req, res) => {
+        try {
+            const { email, password } = req.body
+            const bcryptedPassword = await bcrypt.hash(password, 10)
+            const user = await User.findOne({ email: email })
+            await User.findByIdAndUpdate(user._id, { password: bcryptedPassword })
+            res.send({ success: true, message: 'Password changed successfully' })
+        } catch (error) {
+            console.log(error);
+            res.send({ success: false, message: 'Internal server error' })
         }
     },
 
