@@ -18,6 +18,16 @@ module.exports = {
         }
     },
 
+    getUser: async (req, res) => {
+        try {
+            const user = await User.findById(req.params.id)
+            res.status(200).json(user)
+        } catch (error) {
+            console.log(error);
+            res.send({ success: false, message: 'Internal server error' })
+        }
+    },
+
     editProfilePicture: async (req, res) => {
         try {
             const user = await User.findByIdAndUpdate(req.params.id, { avatar: req.body.avatar })
