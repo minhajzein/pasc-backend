@@ -35,7 +35,7 @@ router.delete('/deleteEvent', verifyAdmin, eventsController.deleteEvent)
 //================ Users management ==============================================
 
 router.get('/users', verifyAdmin, usersController.getAllUsers)
-router.put('/users', verifyAdmin, usersController.deleteUser)
+router.put('/users/:id', verifyAdmin, usersController.deleteUser)
 router.patch('/changeStatus', verifyAdmin, usersController.banUnbanUser)
 router.patch('/addRoles', verifyAdmin, usersController.addRoles)
 
