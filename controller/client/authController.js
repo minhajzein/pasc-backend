@@ -57,6 +57,7 @@ module.exports = {
             }
         } catch (error) {
             console.log(error)
+            res.send({ success: false, message: 'Internal server error' })
         }
     },
 
@@ -111,6 +112,7 @@ module.exports = {
             }
         } catch (error) {
             console.log(error);
+            res.send({ success: false, message: 'Internal server error' })
         }
     },
 
