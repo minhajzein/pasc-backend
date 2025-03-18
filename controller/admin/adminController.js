@@ -10,7 +10,7 @@ const asyncHandler = require('express-async-handler')
 module.exports = {
     home: async (req, res) => {
         try {
-            const users = (await User.find()).length()
+            const users = (await User.find()).length
             res.send({ success: true, users: users })
         } catch (error) {
             console.log(error)
