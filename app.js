@@ -10,7 +10,6 @@ const adminRouter = require('./routes/admin')
 const connectDb = require('./connections/database/mongodb')
 const mongoose = require('mongoose')
 require('dotenv').config()
-const session = require("express-session");
 const DATABASE_URL = process.env.DATABASE_URL
 const cors = require('cors')
 const { logger, logEvents } = require('./middlewares/logger')
@@ -33,14 +32,6 @@ app.use(devLogger("dev"))
 app.use(express.urlencoded({ extended: false, limit: '50mb' }))
 app.use(express.json({ limit: '50mb' }))
 
-app.use(
-    session({
-        secret: process.env.REDIS_SECRET_KEY,
-        resave: false,
-        saveUninitialized: false,
-        cookie: { secure: false, maxAge: 300000 }, // 5 min session
-    })
-);
 
 app.use('/auth', authRouter)
 app.use('/', userRouter)

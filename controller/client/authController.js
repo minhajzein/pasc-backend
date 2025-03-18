@@ -26,7 +26,7 @@ module.exports = {
                     achievements: null,
                     isBanned: false
                 })
-                const user = await User.findOne({ email: req.body.email })
+                const user = await User.findOne({ email: req.body.email }).select('-password')
                 const accessToken = jwt.sign(
                     {
                         'UserInfo': {
