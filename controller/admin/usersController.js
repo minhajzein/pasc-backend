@@ -11,6 +11,7 @@ module.exports = {
             console.log(error);
         }
     },
+
     banUnbanUser: async (req, res) => {
         try {
             const user = await Model.findById(req.body.userId)
@@ -28,11 +29,23 @@ module.exports = {
             console.log(error);
         }
     },
+
     addRoles: async (req, res) => {
         try {
             console.log(req.body);
         } catch (error) {
             console.log(error);
         }
+    },
+
+    deleteUser: async (req, res) => {
+        try {
+            await Model.findByIdAndDelete(req.params.id)
+            res.send({ success: true, message: 'User Deleted Successfully' })
+        } catch (error) {
+            console.log(error);
+            res.send({ success: false, message: 'Internal server error' })
+        }
     }
+
 }

@@ -14,7 +14,7 @@ module.exports = {
             res.json(latestEvents, latestNews)
         } catch (error) {
             console.log(error);
-            res.send({ success: false, err_msg: 'Internal server error' })
+            res.send({ success: false, message: 'Internal server error' })
         }
     },
 
@@ -33,7 +33,7 @@ module.exports = {
             const user = await User.findByIdAndUpdate(req.params.id, { avatar: req.body.avatar })
         } catch (error) {
             console.log(error);
-            res.send({ success: false, err_msg: 'Internal server error' })
+            res.send({ success: false, message: 'Internal server error' })
         }
     },
 

@@ -61,7 +61,7 @@ module.exports = {
                 res.status(400).json({ message: 'Invalid or expired OTP' });
             }
         } catch (error) {
-            console.error("Error accessing Redis:", error);
+            console.error(error);
             res.status(500).json({ message: 'Server error', error });
         }
     }

@@ -1,4 +1,4 @@
-
+const User = require('../../model/userSchema')
 const bcrypt = require('bcrypt')
 const Admin = require('../../model/adminSchema')
 const jwt = require('jsonwebtoken');
@@ -8,13 +8,15 @@ const asyncHandler = require('express-async-handler')
 
 
 module.exports = {
-    home: asyncHandler(async (req, res) => {
+    home: async (req, res) => {
         try {
-
+            const users = (await User.find()).length()
+            res.send({ success: true, users: users })
         } catch (error) {
             console.log(error)
+            res.status(500).json({ message: 'Server error', error });
         }
-    }),
+    },
 
     login: async (req, res) => {
         try {
@@ -61,6 +63,7 @@ module.exports = {
         }
         catch (error) {
             console.log(error);
+            res.status(500).json({ message: 'Server error', error });
         }
     },
 
@@ -99,6 +102,7 @@ module.exports = {
                 }))
         } catch (error) {
             console.log(error);
+            res.status(500).json({ message: 'Server error', error });
         }
     },
 
@@ -113,6 +117,7 @@ module.exports = {
             }).json({ success: true })
         } catch (error) {
             console.log(error);
+            res.status(500).json({ message: 'Server error', error });
         }
     }
 }
