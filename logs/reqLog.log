@@ -16305,3 +16305,5 @@
 20250318	10:54:29	POST	/auth/verify-otp	http://localhost:5173
 20250318	10:55:15	OPTIONS	/auth/signup	http://localhost:5173
 20250318	10:55:15	POST	/auth/signup	http://localhost:5173
+20250318	10:57:21	OPTIONS	/get-user/67d903bc9893a699d640c320	http://localhost:5173
+20250318	10:57:21	GET	/get-user/67d903bc9893a699d640c320	http://localhost:5173
