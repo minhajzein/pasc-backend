@@ -41,9 +41,9 @@ module.exports = {
         try {
             const userWithEmail = await User.find({ email: req.body.email, _id: { $ne: req.params.id } })
             const userwithMobile = await User.find({ mobile: req.body.mobile, _id: { $ne: req.params.id } })
-            if (userWithEmail > 0)
+            if (userWithEmail[0] !== undefined)
                 return res.status(200).send({ message: 'Email is already registered', success: false })
-            if (userwithMobile > 0)
+            if (userwithMobile[0] !== undefined)
                 return res.status(200).send({ message: 'Mobile Number is already registered', success: false })
 
             const user = await User.findByIdAndUpdate(req.params.id, {
