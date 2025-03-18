@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 require("dotenv").config();
+const OTP = require('../../model/otpSchema')
 
 
 // Function to generate 6-digit OTP
@@ -20,11 +21,9 @@ module.exports = {
         const { email } = req.body;
 
         if (!email) return res.status(400).json({ success: false, message: 'Email is required' });
-
+        await OTP.deleteMany({ email: email })
         const otp = generateOTP();
-        req.session.otp = otp
-        // Store OTP temporarily
-
+        await OTP.create({ email: email, otp: otp })
         const mailOptions = {
             from: process.env.EMAIL,
             to: email,
@@ -48,13 +47,22 @@ module.exports = {
     },
 
     verifyOTP: async (req, res) => {
-        const { otp } = req.body;
+        const { email, otp } = req.body;
+        if (!email || !otp) return res.status(400).json({ success: false, message: 'Email and OTP are required' });
 
-        if (!otp) return res.status(400).json({ success: false, message: 'Email and OTP are required' });
-        if (req.session.otp === otp) {
-            res.json({ success: true, message: 'OTP verified successfully' });
-        } else {
-            res.status(400).json({ message: 'Invalid OTP' });
+        try {
+            // Retrieve OTP from Redis and log it
+            const storedOTP = await OTP.findOne({ email: email });
+
+            if (storedOTP && storedOTP.otp == otp) {
+                await OTP.deleteMany({ email: email }) // Delete OTP after verification
+                res.json({ success: true, message: 'OTP verified successfully' });
+            } else {
+                res.status(400).json({ message: 'Invalid or expired OTP' });
+            }
+        } catch (error) {
+            console.error("Error accessing Redis:", error);
+            res.status(500).json({ message: 'Server error', error });
         }
     }
 
