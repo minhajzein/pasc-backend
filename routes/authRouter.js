@@ -7,7 +7,7 @@ const { sendOTP, verifyOTP } = require('../controller/client/emailController');
 //===================
 
 
-router.post('/signup', authController.signUp)
+router.post('/sign-up', authController.signUp)
 
 router.post('/login', authController.login)
 
