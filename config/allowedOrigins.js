@@ -6,7 +6,10 @@ const allowedOrigins = [
     'https://www.revetechnologies.in',
     'https://revetechnologies.in',
     'https://godlandit.vercel.app',
-    'https://www.godlandit.vercel.app'
+    'https://www.godlandit.vercel.app',
+    'http://localhost:3000',
+    'https://care-mall.vercel.app',
+    'https://www.care-mall.vercel.app',
 ]
 
 module.exports = allowedOrigins
